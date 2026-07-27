@@ -1,22 +1,22 @@
-from django.shortcuts import render 
-from django.http import HttpResponse,JsonResponse
+from django.shortcuts import render, redirect
+from django.http import HttpResponse, JsonResponse
 from .models import Student
-
-# Create your views here.
+from .forms import StudentForm
 
 def index(request):
-    student = list(Student.objects.all().values())
+    # Pass the queryset directly; Django templates handle querysets efficiently
+    students = Student.objects.all()
     
-    print(student)
-    return JsonResponse(student,safe=False)
-    # student_names = ", ".join([s.name for s in student])
-    
-    
-    # if not student_names:
-    #     return HttpResponse("Hello, ALL student. ")
+    if request.method == 'POST':
+        form = StudentForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('index')
+    else:
+        # Instantiate an empty form for GET requests
+        form = StudentForm()
         
-    # return HttpResponse(f"Hello, ALL student: {student_names}")
-   
+    return render(request, 'index.html', {'students': students, 'form': form})
 
 def student(request):
     return HttpResponse("Hello, world. You're at the student page.")
