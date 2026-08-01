@@ -1,0 +1,29 @@
+<h2>Students</h2>
+
+{% for student in page_obj %}
+
+    <h3>{{ student.name }}</h3>
+    <p>{{ student.email }}</p>
+    <p>{{ student.age }}</p>
+
+{% empty %}
+
+    <p>No students found.</p>
+
+{% endfor %}
+<div>
+    {% if page_obj.has_previous %}
+        <!-- Preserves existing URL parameters while changing the page -->
+        <a href="?{{ request.GET.urlencode }}&page=1">First</a>
+        <a href="?{{ request.GET.urlencode }}&page={{ page_obj.previous_page_number }}">Previous</a>
+    {% endif %}
+
+    <span>
+        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+    </span>
+
+    {% if page_obj.has_next %}
+        <a href="?{{ request.GET.urlencode }}&page={{ page_obj.next_page_number }}">Next</a>
+        <a href="?{{ request.GET.urlencode }}&page={{ page_obj.paginator.num_pages }}">Last</a>
+    {% endif %}
+</div>

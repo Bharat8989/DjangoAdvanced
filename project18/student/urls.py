@@ -9,3 +9,4 @@ urlpatterns = [
     path('student/<int:pk>/',views.update_student,name='update_student'),
     # path('student/',views.student,name='student'),
 ]
+ 
