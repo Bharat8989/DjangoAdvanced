@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ post.title }}</title>
+</head>
+<body>
+
+ 
+    <h1>{{ post.title }}</h1>
+
+    <hr>
+
+    
+    <p>{{ post.content }}</p>
+
+    <hr>
+
+
+    <div>
+      
+        <a href="{% url 'post_update' post.pk %}" style="color: blue; font-weight: bold; margin-right: 15px;">
+            ✏️ edit it
+        </a>
+
+        <a href="{% url 'post_delete' post.pk %}" style="color: red; font-weight: bold; margin-right: 15px;">
+            🗑️ delete it 
+        </a>
+
+       
+        <a href="{% url 'post_list' %}" style="color: gray;">
+            ⬅️ show all post list
+        </a>
+    </div>
+
+</body>
+</html>
